@@ -1,0 +1,16 @@
+{
+  "name": "lighttype",
+  "version": "1.0.0",
+  "description": "轻量级Markdown编辑器",
+  "author": "JohnChiao75(Miya0823)",
+  "license": "MIT",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "node scripts/build.js && tauri build",
+    "prepare": "node scripts/build.js"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.9.4"
+  }
+}
