@@ -132,4 +132,17 @@
                 
                 return text;
             }
+// ===== 主题切换 =====
+const themeSelect = document.getElementById('theme-select');
+// 读取用户上次选择
+const saved = localStorage.getItem('theme') || 'light';
+themeSelect.value = saved;
+document.documentElement.setAttribute('data-theme', saved);
+
+themeSelect.addEventListener('change', e => {
+  const t = e.target.value;
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('theme', t);
+});
+
         });
