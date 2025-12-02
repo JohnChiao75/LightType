@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const dist = path.join(__dirname, '..', 'dist');
-const files = ['index.html', 'script.js', 'styles.css', 'README.md', 'LICENSE'];
+const files = ['index.html', 'script.js', 'styles.css','github.min.css', 'marked.min.js', 'highlight.min.js', 'README.md', 'LICENSE'];
 
 if (fs.existsSync(dist)) {
   fs.rmSync(dist, { recursive: true });

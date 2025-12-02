@@ -85,52 +85,38 @@
                 }
             }
             
-            // 简单的Markdown解析器
-            function parseMarkdown(text) {
-                // 处理标题
-                text = text.replace(/^# (.*$)/gm, '<h1>$1</h1>');
-                text = text.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-                text = text.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+            if (typeof marked !== 'undefined') {
+                const renderer = new marked.Renderer();
+                const originalCode = renderer.code.bind(renderer);
                 
-                // 处理粗体
-                text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                renderer.code = function(code, language) {
+                    if (language && typeof hljs !== 'undefined') {
+                        try {
+                            const highlighted = hljs.highlight(code, { language: language }).value;
+                            return `<pre><code class="hljs language-${language}">${highlighted}</code></pre>`;
+                        } catch (e) {
+                            console.warn('无法高亮:', language, e.message);
+                        }
+                    }
+                    return originalCode(code, language);
+                };
                 
-                // 处理斜体
-                text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
-                
-                // 处理代码块
-                text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-                
-                // 处理行内代码
-                text = text.replace(/`(.*?)`/g, '<code>$1</code>');
-                
-                // 处理链接
-                text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
-                
-                // 处理图片
-                text = text.replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">');
-                
-                // 处理引用
-                text = text.replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>');
-                
-                // 处理无序列表
-                text = text.replace(/^\s*[-*] (.*$)/gm, '<li>$1</li>');
-                text = text.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
-                
-                // 处理有序列表
-                text = text.replace(/^\s*\d+\. (.*$)/gm, '<li>$1</li>');
-                text = text.replace(/(<li>.*<\/li>)/s, '<ol>$1</ol>');
-                
-                // 处理表格
-                text = text.replace(/^\|(.+)\|$/gm, function(match) {
-                    const cells = match.split('|').slice(1, -1);
-                    return '<tr>' + cells.map(cell => `<td>${cell.trim()}</td>`).join('') + '</tr>';
+                marked.setOptions({
+                    gfm: true,
+                    breaks: false,
+                    renderer: renderer
                 });
-                
-                // 处理换行
-                text = text.replace(/\n/g, '<br>');
-                
-                return text;
+            }
+            
+            function parseMarkdown(text) {
+                if (typeof marked === 'undefined') {
+                    return '<p style="color: red;">解析器加载失败 无法渲染</p>';
+                }
+                try {
+                    return marked.parse(text);
+                } catch (e) {
+                    return `<p style="color: red;">Markdown 解析错误: ${e.message}</p>`;
+                }
             }
 // ===== 主题切换 =====
 const themeSelect = document.getElementById('theme-select');
