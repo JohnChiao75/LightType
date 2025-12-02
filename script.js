@@ -41,7 +41,37 @@
             function updatePreview() {
                 const markdownText = markdownInput.value;
                 preview.innerHTML = parseMarkdown(markdownText);
+                openLinks();
             }
+            function openLinks() {
+                if (!preview) return;
+                preview.querySelectorAll('a').forEach(a => {
+                    try {
+                        a.setAttribute('target', '_blank');
+                        a.setAttribute('rel', 'noopener noreferrer');
+                    } catch (e) {
+                    }
+                });
+            }
+
+            preview.addEventListener('click', function(e) {
+                const anchor = e.target.closest && e.target.closest('a');
+                if (!anchor || !preview.contains(anchor)) return;
+
+                const href = anchor.getAttribute('href') || anchor.href;
+                if (!href) return;
+                if (href.startsWith('#')) return;
+
+                e.preventDefault();
+                try {
+                    if (window.__TAURI__ && window.__TAURI__.shell && typeof window.__TAURI__.shell.open === 'function') {
+                        window.__TAURI__.shell.open(href);
+                        return;
+                    }
+                } catch (err) {
+                }
+                window.open(href, '_blank', 'noopener');
+            });
             
             // 更新行号
             function updateLineNumbers() {
