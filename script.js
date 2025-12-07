@@ -23,6 +23,40 @@
             markdownInput.addEventListener('scroll', function() {
                 lineNumbers.scrollTop = markdownInput.scrollTop;
             });
+
+            // 粘贴有格式的文本的时候转为 Markdown
+            markdownInput.addEventListener('paste', function(event) {
+                const clipboardData = event.clipboardData;
+                if (!clipboardData) return;
+
+                const html = clipboardData.getData('text/html');
+                const text = clipboardData.getData('text/plain');
+                if (html && typeof TurndownService !== 'undefined') {
+                    event.preventDefault();
+                    
+                    const turndownService = new TurndownService({
+                        headingStyle: 'atx',
+                        codeBlockStyle: 'fenced',
+                        emDelimiter: '*',
+                        strongDelimiter: '**',
+                        linkStyle: 'inlined'
+                    });
+                    if (typeof turndownPluginGfm !== 'undefined') {
+                        turndownService.use(turndownPluginGfm.gfm);
+                    }
+
+                    const markdown = turndownService.turndown(html);
+                    const start = markdownInput.selectionStart;
+                    const end = markdownInput.selectionEnd;
+                    const currentValue = markdownInput.value;
+                    
+                    markdownInput.value = currentValue.substring(0, start) + markdown + currentValue.substring(end);
+                    const newPosition = start + markdown.length;
+                    markdownInput.setSelectionRange(newPosition, newPosition);
+                    updatePreview();
+                    updateLineNumbers();
+                }
+            });
             
             // 视图切换
             codeViewBtn.addEventListener('click', function() {
