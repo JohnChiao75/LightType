@@ -6,6 +6,8 @@
             --text-color: #333;
             --line-number-color: #6c757d;
             --secondary-bg: #f5f5f5;
+            --code-bg: #f6f8fa;
+            --code-text: #24292e;
         }
 
         * {
@@ -182,7 +184,8 @@
         }
 
         .preview code {
-            background-color: #f6f8fa;
+            background-color: var(--code-bg);
+            color: var(--code-text);
             padding: 2px 4px;
             border-radius: 3px;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
@@ -190,7 +193,8 @@
         }
 
         .preview pre {
-            background-color: #f6f8fa;
+            background-color: var(--code-bg);
+            color: var(--code-text);
             padding: 16px;
             border-radius: 6px;
             overflow-x: auto;
@@ -228,7 +232,7 @@
         }
 
         .preview table th {
-            background-color: #f6f8fa;
+            background-color: var(--code-bg);
         }
 
         .preview img {
@@ -319,6 +323,8 @@
   --text-color: #c9d1d9;
   --line-number-color: #6e7681;
   --secondary-bg: #161b22;
+  --code-bg: #161b22;
+  --code-text: #c9d1d9;
 }
 
 /* 3. One Dark Pro – 一体化去蓝 */
@@ -330,6 +336,8 @@
   --text-color: #abb2bf;
   --line-number-color: #4b5263;
   --secondary-bg: #21252b;
+  --code-bg: #21252b;
+  --code-text: #abb2bf;
 }
 
 /* 4. Solarized Light */
@@ -341,6 +349,8 @@
   --text-color: #657b83;
   --line-number-color: #93a1a1;
   --secondary-bg: #eee8d5;
+  --code-bg: #eee8d5;
+  --code-text: #586e75;
 }
 
 /* 5. Solarized Dark */
@@ -352,6 +362,8 @@
   --text-color: #839496;
   --line-number-color: #586e75;
   --secondary-bg: #073642;
+  --code-bg: #073642;
+  --code-text: #839496;
 }
 
 /* 6. Dracula */
@@ -363,6 +375,8 @@
   --text-color: #f8f8f2;
   --line-number-color: #6272a4;
   --secondary-bg: #44475a;
+  --code-bg: #44475a;
+  --code-text: #f8f8f2;
 }
 
 /* 7. Quiet Light */
@@ -374,6 +388,8 @@
   --text-color: #383a42;
   --line-number-color: #9d9d9f;
   --secondary-bg: #f3f3f3;
+  --code-bg: #f0f0f0;
+  --code-text: #383a42;
 }
 
 /* 8. Night Blue */
@@ -385,4 +401,98 @@
   --text-color: #d6deeb;
   --line-number-color: #4b6479;
   --secondary-bg: #1d3b53;
+  --code-bg: #1d3b53;
+  --code-text: #d6deeb;
+}
+
+/* Dark 主题 代码高亮修复 by ILoveScratch2 */
+[data-theme="dark"] .preview pre code.hljs .hljs-string,
+[data-theme="dark"] .preview pre code.hljs .hljs-regexp {
+  color: #9ecbff;
+}
+[data-theme="dark"] .preview pre code.hljs .hljs-keyword,
+[data-theme="dark"] .preview pre code.hljs .hljs-variable.language_ {
+  color: #ff7b72;
+}
+[data-theme="dark"] .preview pre code.hljs .hljs-number,
+[data-theme="dark"] .preview pre code.hljs .hljs-literal {
+  color: #79c0ff;
+}
+[data-theme="dark"] .preview pre code.hljs .hljs-title.function_ {
+  color: #d2a8ff;
+}
+[data-theme="dark"] .preview pre code.hljs .hljs-comment {
+  color: #8b949e;
+}
+
+/* One Dark Pro */
+[data-theme="one-dark-pro"] .preview pre code.hljs .hljs-string,
+[data-theme="one-dark-pro"] .preview pre code.hljs .hljs-regexp {
+  color: #98c379;
+}
+[data-theme="one-dark-pro"] .preview pre code.hljs .hljs-keyword {
+  color: #c678dd;
+}
+[data-theme="one-dark-pro"] .preview pre code.hljs .hljs-number,
+[data-theme="one-dark-pro"] .preview pre code.hljs .hljs-literal {
+  color: #d19a66;
+}
+[data-theme="one-dark-pro"] .preview pre code.hljs .hljs-title.function_ {
+  color: #61afef;
+}
+[data-theme="one-dark-pro"] .preview pre code.hljs .hljs-variable {
+  color: #e06c75;
+}
+
+/* Solarized Dark */
+[data-theme="solarized-dark"] .preview pre code.hljs .hljs-string,
+[data-theme="solarized-dark"] .preview pre code.hljs .hljs-regexp {
+  color: #2aa198;
+}
+[data-theme="solarized-dark"] .preview pre code.hljs .hljs-keyword {
+  color: #859900;
+}
+[data-theme="solarized-dark"] .preview pre code.hljs .hljs-number {
+  color: #d33682;
+}
+[data-theme="solarized-dark"] .preview pre code.hljs .hljs-title.function_ {
+  color: #268bd2;
+}
+
+/* Dracula */
+[data-theme="dracula"] .preview pre code.hljs .hljs-string,
+[data-theme="dracula"] .preview pre code.hljs .hljs-regexp {
+  color: #f1fa8c;
+}
+[data-theme="dracula"] .preview pre code.hljs .hljs-keyword {
+  color: #ff79c6;
+}
+[data-theme="dracula"] .preview pre code.hljs .hljs-number,
+[data-theme="dracula"] .preview pre code.hljs .hljs-literal {
+  color: #bd93f9;
+}
+[data-theme="dracula"] .preview pre code.hljs .hljs-title.function_ {
+  color: #50fa7b;
+}
+[data-theme="dracula"] .preview pre code.hljs .hljs-variable {
+  color: #8be9fd;
+}
+
+/* Night Blue */
+[data-theme="night-blue"] .preview pre code.hljs .hljs-string,
+[data-theme="night-blue"] .preview pre code.hljs .hljs-regexp {
+  color: #ecc48d;
+}
+[data-theme="night-blue"] .preview pre code.hljs .hljs-keyword {
+  color: #c792ea;
+}
+[data-theme="night-blue"] .preview pre code.hljs .hljs-number,
+[data-theme="night-blue"] .preview pre code.hljs .hljs-literal {
+  color: #f78c6c;
+}
+[data-theme="night-blue"] .preview pre code.hljs .hljs-title.function_ {
+  color: #82aaff;
+}
+[data-theme="night-blue"] .preview pre code.hljs .hljs-variable {
+  color: #addb67;
 }
